@@ -1,0 +1,24 @@
+/**
+ * 
+ */
+package com.example.accounts.service.client;
+
+import java.util.List;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.example.accounts.model.Customer;
+import com.example.accounts.model.Loans;
+
+/**
+ * @author User
+ *
+ */
+@FeignClient(name = "loans")
+public interface LoansFeignClient {
+	@RequestMapping(method = RequestMethod.POST, value = "myLoans", consumes = "application/json")
+	List<Loans> getLoansDetails( Customer customer);
+
+}
