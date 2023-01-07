@@ -1,10 +1,13 @@
-FROM openjdk:11-slim as build
+FROM openjdk:11-jdk-slim
 
 #maintainer sachin
 MAINTAINER SACHIN
+VOLUME /tmp
+ARG JAR_FILE=target/*.jar
 
 #add applcation jar to container
-COPY target/accounts-0.0.1-SNAPSHOT.jar accounts-0.0.1-SNAPSHOT.jar
+COPY ${JAR_FILE} app.jar
 
 #execute application
-ENTRYPOINT ["java", "-jar", "accounts-0.0.1-SNAPSHOT.jar"]
+ENV JAVA_OPTS=""
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
